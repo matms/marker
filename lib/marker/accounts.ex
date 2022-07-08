@@ -350,4 +350,19 @@ defmodule Marker.Accounts do
       {:error, :user, changeset, _} -> {:error, changeset}
     end
   end
+
+  @doc """
+  Returns true if it should be possible to login to any user account using any
+  password. This functionality is used in the development environment to
+  facilitate testing and debugging.
+
+  If this software should be used in a security-hardened context, one may wish
+  to override this function to always return false.
+
+  Note that it is possible to login w/o password in any case by using
+  `get_user_by_email/1`.
+  """
+  def allow_login_with_any_password() do
+    Application.get_env(:marker, Marker.Accounts)[:login_with_any_password]
+  end
 end

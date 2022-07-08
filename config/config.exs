@@ -47,6 +47,11 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Password Requirements
+config :marker, Marker.Accounts,
+  min_password_length: 12,
+  login_with_any_password: false
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

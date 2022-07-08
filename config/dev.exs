@@ -73,3 +73,8 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# Relax Password Requirements in Dev environment for convenience
+config :marker, Marker.Accounts,
+  min_password_length: 1,
+  login_with_any_password: true
