@@ -1,7 +1,9 @@
-defmodule Marker.Application do
+defmodule MarkerApp do
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   @moduledoc false
+
+  use Boundary, deps: [Marker, MarkerWeb]
 
   use Application
 

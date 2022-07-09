@@ -2,6 +2,7 @@ defmodule Marker.Accounts do
   @moduledoc """
   The Accounts context.
   """
+  use Boundary, deps: [Marker.{Repo, Mailer}], exports: [User]
 
   import Ecto.Query, warn: false
   alias Marker.Repo

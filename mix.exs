@@ -7,10 +7,12 @@ defmodule Marker.MixProject do
       version: "0.1.0",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:gettext] ++ Mix.compilers(),
+      compilers: [:boundary, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      boundary: boundary(),
+      docs: docs()
     ]
   end
 
@@ -19,7 +21,7 @@ defmodule Marker.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Marker.Application, []},
+      mod: {MarkerApp, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -51,7 +53,8 @@ defmodule Marker.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
-      {:ex_doc, "~> 0.27", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.27", dev: true, runtime: false},
+      {:boundary, "~> 0.9", runtime: false}
     ]
   end
 
@@ -69,5 +72,28 @@ defmodule Marker.MixProject do
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.deploy": ["esbuild default --minify", "phx.digest"]
     ]
+  end
+
+  defp boundary do
+    [
+      default: [
+        check: [
+          apps: [:phoenix, :ecto, {:mix, :runtime}]
+        ]
+      ]
+    ]
+  end
+
+  defp docs do
+    [
+      groups_for_modules: groups_for_modules()
+    ]
+  end
+
+  # Make sure to use `mix boundary.ex_doc_groups` to regenerate boundary.exs
+  # if there were any relevant changes (i.e. most changes).
+  defp groups_for_modules do
+    {list, _} = Code.eval_file("boundary.exs")
+    list
   end
 end

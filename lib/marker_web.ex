@@ -17,6 +17,8 @@ defmodule MarkerWeb do
   and import those modules here.
   """
 
+  use Boundary, deps: [Marker, Phoenix, Ecto.Changeset], exports: [Endpoint]
+
   def controller do
     quote do
       use Phoenix.Controller, namespace: MarkerWeb

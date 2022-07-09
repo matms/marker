@@ -2,6 +2,7 @@ defmodule Marker.Library do
   @moduledoc """
   The Library context.
   """
+  use Boundary, deps: [Marker.{Accounts, Repo}], exports: [Bookmark]
 
   import Ecto.Query, warn: false
   alias Marker.Repo
