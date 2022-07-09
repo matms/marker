@@ -1,0 +1,14 @@
+{
+    "emmet.includeLanguages": {
+        "phoenix-heex": "html",
+    },
+    "emeraldwalk.runonsave": {
+        "commands": [
+            {
+                "match": "\\.heex?$",
+                "isAsync": false,
+                "cmd": "cd ${workspaceRoot} && mix format ${file}"
+            }
+        ]
+    },
+}
