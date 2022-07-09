@@ -31,5 +31,11 @@ defmodule Marker.Library.Bookmark do
     bookmark
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
+    |> validate_url()
+  end
+
+  defp validate_url(changeset) do
+    changeset
+    |> validate_format(:url, ~r/^https?:\/\//, message: "Must start with http:// or https://")
   end
 end

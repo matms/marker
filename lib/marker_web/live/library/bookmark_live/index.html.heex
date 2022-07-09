@@ -17,7 +17,6 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>Url</th>
 
       <th></th>
     </tr>
@@ -25,18 +24,19 @@
   <tbody id="bookmarks">
     <%= for bookmark <- @bookmarks do %>
       <tr id={"bookmark-#{bookmark.id}"}>
-        <td><%= bookmark.title %></td>
-        <td><%= bookmark.url %></td>
+        <td><a href={bookmark.url}><%= bookmark.title %></a></td>
 
         <td>
           <span>
             <%= live_redirect("Show",
-              to: Routes.library_bookmark_show_path(@socket, :show, bookmark)
+              to: Routes.library_bookmark_show_path(@socket, :show, bookmark),
+              class: "button"
             ) %>
           </span>
           <span>
             <%= live_patch("Edit",
-              to: Routes.library_bookmark_index_path(@socket, :edit, bookmark)
+              to: Routes.library_bookmark_index_path(@socket, :edit, bookmark),
+              class: "button"
             ) %>
           </span>
           <span>
@@ -44,7 +44,8 @@
               to: "#",
               phx_click: "delete",
               phx_value_id: bookmark.id,
-              data: [confirm: "Are you sure?"]
+              data: [confirm: "Are you sure?"],
+              class: "button"
             ) %>
           </span>
         </td>

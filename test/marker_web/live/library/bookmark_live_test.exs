@@ -5,8 +5,8 @@ defmodule MarkerWeb.Library.BookmarkLiveTest do
   import Phoenix.LiveViewTest
   import Marker.LibraryFixtures
 
-  @create_attrs %{title: "some title", url: "some url"}
-  @update_attrs %{title: "some updated title", url: "some updated url"}
+  @create_attrs %{title: "some title", url: "https://www.example.com"}
+  @update_attrs %{title: "some updated title", url: "https://www.example.com/2"}
   @invalid_attrs %{title: nil, url: nil}
 
   defp create_bookmark(%{user: user}) do

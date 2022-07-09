@@ -23,10 +23,10 @@ defmodule MarkerWeb.Library.BookmarkLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
+  defp apply_action(%{assigns: %{current_user: user}} = socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Bookmark")
-    |> assign(:bookmark, Library.get_bookmark!(id))
+    |> assign(:bookmark, Library.get_bookmark_check_user!(id, user))
   end
 
   defp apply_action(%{assigns: %{current_user: user}} = socket, :new, _params) do
@@ -43,7 +43,7 @@ defmodule MarkerWeb.Library.BookmarkLive.Index do
 
   @impl true
   def handle_event("delete", %{"id" => id}, %{assigns: %{current_user: user}} = socket) do
-    bookmark = Library.get_bookmark!(id)
+    bookmark = Library.get_bookmark_check_user!(id, user)
     {:ok, _} = Library.delete_bookmark(bookmark)
 
     {:noreply, assign(socket, :bookmarks, list_bookmarks_by_user(user))}

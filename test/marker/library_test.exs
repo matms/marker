@@ -32,16 +32,32 @@ defmodule Marker.LibraryTest do
       assert Library.get_bookmark!(bookmark.id) == bookmark
     end
 
+    test "get_bookmark_check_user!/1 returns the bookmark with given id if user matches" do
+      bookmark = bookmark_fixture()
+      user = load_user_with_id(bookmark.user_id)
+      assert Library.get_bookmark_check_user!(bookmark.id, user) == bookmark
+    end
+
+    test "get_bookmark_check_user!/1 raises Ecto.NoResultsError if user doesn't matches" do
+      bookmark = bookmark_fixture()
+      user = load_user_with_id(bookmark.user_id)
+      bad_user = %{user | id: user.id + 1}
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Library.get_bookmark_check_user!(bookmark.id, bad_user)
+      end
+    end
+
     test "create_bookmark/1 with valid data creates a bookmark" do
       valid_attrs = %{
         title: "some title",
-        url: "some url",
+        url: "https://www.example.com",
         user_id: Marker.AccountsFixtures.user_fixture().id
       }
 
       assert {:ok, %Bookmark{} = bookmark} = Library.create_bookmark(valid_attrs)
       assert bookmark.title == "some title"
-      assert bookmark.url == "some url"
+      assert bookmark.url == "https://www.example.com"
     end
 
     test "create_bookmark/1 with invalid data returns error changeset" do
@@ -50,11 +66,11 @@ defmodule Marker.LibraryTest do
 
     test "update_bookmark/2 with valid data updates the bookmark" do
       bookmark = bookmark_fixture()
-      update_attrs = %{title: "some updated title", url: "some updated url"}
+      update_attrs = %{title: "some updated title", url: "https://www.example.com/2"}
 
       assert {:ok, %Bookmark{} = bookmark} = Library.update_bookmark(bookmark, update_attrs)
       assert bookmark.title == "some updated title"
-      assert bookmark.url == "some updated url"
+      assert bookmark.url == "https://www.example.com/2"
     end
 
     test "update_bookmark/2 with invalid data returns error changeset" do
@@ -73,5 +89,9 @@ defmodule Marker.LibraryTest do
       bookmark = bookmark_fixture()
       assert %Ecto.Changeset{} = Library.change_bookmark(bookmark)
     end
+  end
+
+  defp load_user_with_id(id) do
+    Marker.Accounts.get_user!(id)
   end
 end

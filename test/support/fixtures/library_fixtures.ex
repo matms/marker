@@ -12,7 +12,7 @@ defmodule Marker.LibraryFixtures do
       attrs
       |> Enum.into(%{
         title: "some title",
-        url: "some url",
+        url: "https://www.example.net",
         user_id: Marker.AccountsFixtures.user_fixture().id
       })
       |> Marker.Library.create_bookmark()

@@ -9,13 +9,13 @@
     phx-change="validate"
     phx-submit="save"
   >
-    <%= label(f, :title) %>
-    <%= text_input(f, :title) %>
-    <%= error_tag(f, :title) %>
-
     <%= label(f, :url) %>
     <%= text_input(f, :url) %>
     <%= error_tag(f, :url) %>
+
+    <%= label(f, :title) %>
+    <%= text_input(f, :title) %>
+    <%= error_tag(f, :title) %>
 
     <%= hidden_input(f, :user_id) %>
 

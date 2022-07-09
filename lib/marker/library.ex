@@ -56,6 +56,26 @@ defmodule Marker.Library do
   """
   def get_bookmark!(id), do: Repo.get!(Bookmark, id)
 
+  @spec get_bookmark_check_user!(term, Marker.Accounts.User.t()) :: Bookmark.t()
+  @doc """
+  Gets a single bookmark, assuming that bookmark is possessed by `user`.
+
+  Raises `Ecto.NoResultsError` if the Bookmark does not exist or is by a
+  different user.
+
+  ## Examples
+
+      iex> get_bookmark_check_user!(123, user)
+      %Bookmark{}
+
+      iex> get_bookmark_check_user!(123, incorrect_user)
+      ** (Ecto.NoResultsError)
+  """
+  def get_bookmark_check_user!(id, %User{} = user) do
+    Bookmark.Query.from_user(user)
+    |> Repo.get!(id)
+  end
+
   @spec create_bookmark(%{}) :: {:ok, Bookmark.t()} | {:error, Ecto.Changeset.t()}
   @doc """
   Creates a bookmark.
