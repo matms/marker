@@ -23,6 +23,18 @@ defmodule MarkerWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/library", MarkerWeb.Library, as: :library do
+    pipe_through [:browser, :require_authenticated_user]
+    # TODO: Ensure auth.
+
+    live "/bookmarks", BookmarkLive.Index, :index
+    live "/bookmarks/new", BookmarkLive.Index, :new
+    live "/bookmarks/:id/edit", BookmarkLive.Index, :edit
+
+    live "/bookmarks/:id", BookmarkLive.Show, :show
+    live "/bookmarks/:id/show/edit", BookmarkLive.Show, :edit
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", MarkerWeb do
   #   pipe_through :api

@@ -1,0 +1,58 @@
+<h1>Listing Bookmarks</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <.modal return_to={Routes.library_bookmark_index_path(@socket, :index)}>
+    <.live_component
+      module={MarkerWeb.Library.BookmarkLive.FormComponent}
+      id={@bookmark.id || :new}
+      title={@page_title}
+      action={@live_action}
+      bookmark={@bookmark}
+      return_to={Routes.library_bookmark_index_path(@socket, :index)}
+    />
+  </.modal>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Url</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="bookmarks">
+    <%= for bookmark <- @bookmarks do %>
+      <tr id={"bookmark-#{bookmark.id}"}>
+        <td><%= bookmark.title %></td>
+        <td><%= bookmark.url %></td>
+
+        <td>
+          <span>
+            <%= live_redirect("Show",
+              to: Routes.library_bookmark_show_path(@socket, :show, bookmark)
+            ) %>
+          </span>
+          <span>
+            <%= live_patch("Edit",
+              to: Routes.library_bookmark_index_path(@socket, :edit, bookmark)
+            ) %>
+          </span>
+          <span>
+            <%= link("Delete",
+              to: "#",
+              phx_click: "delete",
+              phx_value_id: bookmark.id,
+              data: [confirm: "Are you sure?"]
+            ) %>
+          </span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span>
+  <%= live_patch("New Bookmark", to: Routes.library_bookmark_index_path(@socket, :new)) %>
+</span>

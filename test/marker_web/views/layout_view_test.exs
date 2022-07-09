@@ -1,4 +1,6 @@
 defmodule MarkerWeb.LayoutViewTest do
+  @moduledoc false
+
   use MarkerWeb.ConnCase, async: true
 
   # When testing helpers, you may want to import Phoenix.HTML and

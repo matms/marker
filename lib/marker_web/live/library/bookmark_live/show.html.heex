@@ -1,0 +1,35 @@
+<h1>Show Bookmark</h1>
+
+<%= if @live_action in [:edit] do %>
+  <.modal return_to={Routes.library_bookmark_show_path(@socket, :show, @bookmark)}>
+    <.live_component
+      module={MarkerWeb.Library.BookmarkLive.FormComponent}
+      id={@bookmark.id}
+      title={@page_title}
+      action={@live_action}
+      bookmark={@bookmark}
+      return_to={Routes.library_bookmark_show_path(@socket, :show, @bookmark)}
+    />
+  </.modal>
+<% end %>
+
+<ul>
+  <li>
+    <strong>Title:</strong>
+    <%= @bookmark.title %>
+  </li>
+
+  <li>
+    <strong>Url:</strong>
+    <%= @bookmark.url %>
+  </li>
+</ul>
+
+<span>
+  <%= live_patch("Edit",
+    to: Routes.library_bookmark_show_path(@socket, :edit, @bookmark),
+    class: "button"
+  ) %>
+</span>
+|
+<span><%= live_redirect("Back", to: Routes.library_bookmark_index_path(@socket, :index)) %></span>

@@ -1,4 +1,6 @@
 defmodule Marker.LibraryTest do
+  @moduledoc false
+
   use Marker.DataCase
 
   alias Marker.Library

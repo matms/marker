@@ -1,4 +1,5 @@
 defmodule MarkerWeb.Accounts.UserAuthTest do
+  @moduledoc false
   use MarkerWeb.ConnCase, async: true
 
   alias Marker.Accounts

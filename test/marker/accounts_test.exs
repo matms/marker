@@ -1,4 +1,6 @@
 defmodule Marker.AccountsTest do
+  @moduledoc false
+
   use Marker.DataCase
 
   alias Marker.Accounts

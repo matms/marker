@@ -1,4 +1,5 @@
 defmodule MarkerWeb.Accounts.UserRegistrationControllerTest do
+  @moduledoc false
   use MarkerWeb.ConnCase, async: true
 
   import Marker.AccountsFixtures
@@ -13,7 +14,11 @@ defmodule MarkerWeb.Accounts.UserRegistrationControllerTest do
     end
 
     test "redirects if already logged in", %{conn: conn} do
-      conn = conn |> log_in_user(user_fixture()) |> get(Routes.accounts_user_registration_path(conn, :new))
+      conn =
+        conn
+        |> log_in_user(user_fixture())
+        |> get(Routes.accounts_user_registration_path(conn, :new))
+
       assert redirected_to(conn) == "/"
     end
   end

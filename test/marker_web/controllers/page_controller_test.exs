@@ -1,4 +1,6 @@
 defmodule MarkerWeb.PageControllerTest do
+  @moduledoc false
+
   use MarkerWeb.ConnCase
 
   test "GET /", %{conn: conn} do

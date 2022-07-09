@@ -39,7 +39,7 @@ defmodule Marker.Library do
     |> Repo.all()
   end
 
-  @spec get_bookmark!(term) :: [Bookmark.t()]
+  @spec get_bookmark!(term) :: Bookmark.t()
   @doc """
   Gets a single bookmark.
 
@@ -94,7 +94,7 @@ defmodule Marker.Library do
     |> Repo.update()
   end
 
-  @spec delete_bookmark(Bookmark.t()) :: {:ok, Bookmark.t()} | {:error, Ecto.Changeset.t()}
+  @spec delete_bookmark(Marker.Library.Bookmark.t()) :: any
   @doc """
   Deletes a bookmark.
 

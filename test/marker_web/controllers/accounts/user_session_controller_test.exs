@@ -1,4 +1,5 @@
 defmodule MarkerWeb.Accounts.UserSessionControllerTest do
+  @moduledoc false
   use MarkerWeb.ConnCase, async: true
 
   import Marker.AccountsFixtures

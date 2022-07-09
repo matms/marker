@@ -1,4 +1,6 @@
 defmodule MarkerWeb.ErrorViewTest do
+  @moduledoc false
+
   use MarkerWeb.ConnCase, async: true
 
   # Bring render/3 and render_to_string/3 for testing custom views
