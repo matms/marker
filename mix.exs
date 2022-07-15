@@ -43,7 +43,6 @@ defmodule Marker.MixProject do
       {:phoenix_html, "~> 3.0"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:phoenix_live_view, "~> 0.17.5"},
-      {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.6"},
       {:esbuild, "~> 0.4", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.3"},
@@ -54,7 +53,10 @@ defmodule Marker.MixProject do
       {:plug_cowboy, "~> 2.5"},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.27", dev: true, runtime: false},
-      {:boundary, "~> 0.9", runtime: false}
+      {:boundary, "~> 0.9", runtime: false},
+      {:httpoison, "~> 1.8"},
+      {:floki, "~> 0.33.0"},
+      {:html5ever, "~> 0.13.0"}
     ]
   end
 

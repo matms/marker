@@ -11,5 +11,6 @@ defmodule Marker.Repo.Migrations.CreateBookmarks do
     end
 
     create index(:bookmarks, [:user_id])
+    create unique_index(:bookmarks, [:url])
   end
 end

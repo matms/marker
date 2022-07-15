@@ -47,6 +47,9 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+# Use html5ever parser in floki
+config :floki, :html_parser, Floki.HTMLParser.Html5ever
+
 # Password Requirements
 config :marker, Marker.Accounts,
   min_password_length: 12,

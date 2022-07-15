@@ -25,7 +25,6 @@ defmodule MarkerWeb.Router do
 
   scope "/library", MarkerWeb.Library, as: :library do
     pipe_through [:browser, :require_authenticated_user]
-    # TODO: Ensure auth.
 
     live "/bookmarks", BookmarkLive.Index, :index
     live "/bookmarks/new", BookmarkLive.Index, :new

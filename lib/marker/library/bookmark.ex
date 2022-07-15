@@ -32,6 +32,7 @@ defmodule Marker.Library.Bookmark do
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
     |> validate_url()
+    |> unsafe_validate_unique([:url], Marker.Repo)
   end
 
   defp validate_url(changeset) do
