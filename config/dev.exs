@@ -78,3 +78,9 @@ config :phoenix, :plug_init_mode, :runtime
 config :marker, Marker.Accounts,
   min_password_length: 1,
   login_with_any_password: true
+
+# Archival Backends
+config :marker, Marker.Archival.Backend.Shiori,
+  address: "localhost:50001",
+  username: "shiori",
+  password: "gopher"

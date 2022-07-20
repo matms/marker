@@ -80,4 +80,33 @@ if config_env() == :prod do
   #     config :swoosh, :api_client, Swoosh.ApiClient.Hackney
   #
   # See https://hexdocs.pm/swoosh/Swoosh.html#module-installation for details.
+
+  # Archival Backends
+  # TODO: Support enabling and disabling archival backends.
+
+  shiori_address =
+    System.get_env("ARCHIVAL_SHIORI_URL") ||
+      raise """
+      environment variable ARCHIVAL_SHIORI_URL is missing.
+      For example: localhost:50001
+      """
+
+  shiori_username =
+    System.get_env("ARCHIVAL_SHIORI_USERNAME") ||
+      raise """
+      environment variable ARCHIVAL_SHIORI_USERNAME is missing.
+      For example: shiori
+      """
+
+  shiori_password =
+    System.get_env("ARCHIVAL_SHIORI_PASSWORD") ||
+      raise """
+      environment variable ARCHIVAL_SHIORI_PASSWORD is missing.
+      For example: gopher
+      """
+
+  config :marker, Marker.Archival.Backend.Shiori,
+    address: shiori_address,
+    username: shiori_username,
+    password: shiori_password
 end
