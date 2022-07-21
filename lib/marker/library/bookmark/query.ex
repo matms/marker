@@ -8,4 +8,9 @@ defmodule Marker.Library.Bookmark.Query do
     query
     |> where([b], b.user_id == ^user.id)
   end
+
+  def with_url(query \\ base(), url) do
+    query
+    |> where([b], b.url == ^url)
+  end
 end

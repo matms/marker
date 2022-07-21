@@ -21,9 +21,9 @@ defmodule Marker.LibraryTest do
       %{id: id1} = user1 = Marker.AccountsFixtures.user_fixture(email: "a@test")
       %{id: id2} = Marker.AccountsFixtures.user_fixture(email: "b@test")
 
-      bookmark = bookmark_fixture(%{user_id: id1})
-      bookmark2 = bookmark_fixture(%{user_id: id1})
-      _bookmark3 = bookmark_fixture(%{user_id: id2})
+      bookmark = bookmark_fixture(%{url: "https://www.example.net/1", user_id: id1})
+      bookmark2 = bookmark_fixture(%{url: "https://www.example.net/2", user_id: id1})
+      _bookmark3 = bookmark_fixture(%{url: "https://www.example.net/3", user_id: id2})
       assert Enum.sort(Library.list_bookmarks_by_user(user1)) == Enum.sort([bookmark, bookmark2])
     end
 
