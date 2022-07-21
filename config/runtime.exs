@@ -105,7 +105,7 @@ if config_env() == :prod do
       For example: gopher
       """
 
-  config :marker, Marker.Archival.Backend.Shiori,
+  config :marker, Marker.Archive.Shiori,
     address: shiori_address,
     username: shiori_username,
     password: shiori_password

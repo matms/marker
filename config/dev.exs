@@ -80,7 +80,12 @@ config :marker, Marker.Accounts,
   login_with_any_password: true
 
 # Archival Backends
-config :marker, Marker.Archival.Backend.Shiori,
+config :marker, Marker.Archive,
+  enabled_backends: [
+    :shiori
+  ]
+
+config :marker, Marker.Archive.Shiori,
   address: "localhost:50001",
   username: "shiori",
   password: "gopher"

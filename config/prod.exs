@@ -47,3 +47,9 @@ config :logger, level: :info
 #       force_ssl: [hsts: true]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
+
+# Archival Backends
+config :marker, Marker.Archive,
+  enabled_backends: [
+    # :shiori
+  ]

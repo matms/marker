@@ -31,3 +31,15 @@ config :logger, level: :warn
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# Archival Backends
+config :marker, Marker.Archive,
+  enabled_backends: [
+    # :shiori
+  ]
+
+# Must start a new shiori server to run any tests that use the shiori backend.
+config :marker, Marker.Archive.Shiori,
+  address: "localhost:50002",
+  username: "shiori",
+  password: "gopher"
