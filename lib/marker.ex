@@ -7,6 +7,6 @@ defmodule Marker do
   if it comes from the database, an external API or others.
   """
   use Boundary,
-    deps: [Ecto, Ecto.Changeset],
+    deps: [Ecto, Ecto.Changeset, Logger],
     exports: [Accounts, Accounts.User, Library, Library.Bookmark]
 end
