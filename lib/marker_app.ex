@@ -17,9 +17,10 @@ defmodule MarkerApp do
       # Start the PubSub system
       {Phoenix.PubSub, name: Marker.PubSub},
       # Start the Endpoint (http/https)
-      MarkerWeb.Endpoint
+      MarkerWeb.Endpoint,
       # Start a worker by calling: Marker.Worker.start_link(arg)
       # {Marker.Worker, arg}
+      Marker.Archive.Supervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
