@@ -363,7 +363,7 @@ defmodule Marker.Accounts do
   Note that it is possible to login w/o password in any case by using
   `get_user_by_email/1`.
   """
-  def allow_login_with_any_password() do
+  def allow_login_with_any_password do
     Application.get_env(:marker, Marker.Accounts)[:login_with_any_password]
   end
 end

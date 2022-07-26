@@ -10,7 +10,7 @@ defmodule Marker.Archive.Shiori.Protocol do
 
   Returns a session string if successful. Raises on failure.
   """
-  def shiori_login!() do
+  def shiori_login! do
     resp =
       HTTPoison.post!(
         "#{shiori_address()}/api/login",

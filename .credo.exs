@@ -88,13 +88,18 @@
           # If you don't want TODO comments to cause `mix credo` to fail, just
           # set this value to 0 (zero).
           #
-          {Credo.Check.Design.TagTODO, [exit_status: 2]},
-          {Credo.Check.Design.TagFIXME, []},
+
+          # Disabled because I already keep track of TODOs separately.
+          # {Credo.Check.Design.TagTODO, [exit_status: 2]},
+          # {Credo.Check.Design.TagFIXME, []},
 
           #
           ## Readability Checks
           #
-          {Credo.Check.Readability.AliasOrder, []},
+
+          # Disabled because it is annoying
+          # {Credo.Check.Readability.AliasOrder, []},
+
           {Credo.Check.Readability.FunctionNames, []},
           {Credo.Check.Readability.LargeNumbers, []},
           {Credo.Check.Readability.MaxLineLength, [priority: :low, max_length: 120]},

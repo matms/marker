@@ -46,7 +46,7 @@ defmodule Marker.Archive.Shiori do
   end
 
   @spec list_archives :: [String.t()]
-  def list_archives() do
+  def list_archives do
     Cache.list_archives()
   end
 

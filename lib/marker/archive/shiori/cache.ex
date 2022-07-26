@@ -21,7 +21,7 @@ defmodule Marker.Archive.Shiori.Cache do
   end
 
   @spec list_archives :: [String.t()]
-  def list_archives() do
+  def list_archives do
     Agent.get(__MODULE__, fn state -> Map.keys(state) end)
   end
 

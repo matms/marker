@@ -17,17 +17,17 @@ defmodule Marker.Archive.Shiori.ShioriError do
         }
 
   @spec failed_login :: ShioriError.t()
-  def failed_login() do
+  def failed_login do
     %__MODULE__{reason: :failed_login}
   end
 
   @spec url_already_in_cache :: ShioriError.t()
-  def url_already_in_cache() do
+  def url_already_in_cache do
     %__MODULE__{reason: :url_already_in_cache}
   end
 
   @spec unique_constraint_failed :: ShioriError.t()
-  def unique_constraint_failed() do
+  def unique_constraint_failed do
     %__MODULE__{reason: :unique_constraint_failed}
   end
 
