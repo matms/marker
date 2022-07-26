@@ -3,7 +3,13 @@ defmodule MarkerApp do
   # for more information on OTP Applications
   @moduledoc false
 
-  use Boundary, deps: [Marker, MarkerWeb]
+  use Boundary,
+    deps: [Marker, MarkerWeb],
+    # We suppress alias checking here since we need to specify supervisors like
+    # `Marker.Repo`. Note that exporting Marker.Repo would be undesireable,
+    # as this would allow unrestricted access to the database. We'd rather
+    # relax the check here than do it globally.
+    check: [aliases: false]
 
   use Application
 

@@ -80,6 +80,7 @@ defmodule Marker.MixProject do
     [
       default: [
         check: [
+          aliases: true,
           apps: [:phoenix, :ecto, {:mix, :runtime}]
         ]
       ]
