@@ -8,7 +8,8 @@ defmodule Marker.Archive.Shiori do
   use Boundary, exports: [ShioriError, Supervisor]
   alias Marker.Archive.Shiori.{Server, Cache, Protocol}
 
-  @spec archive_url(String.t()) :: {:error, Marker.Archive.Shiori.ShioriError.t()} | {:ok, {number, String.t()}}
+  @spec archive_url(String.t()) ::
+          {:error, Marker.Archive.Shiori.ShioriError.t()} | {:ok, {number, String.t()}}
   @doc """
   Synchronously archives an URL in shiori.
 

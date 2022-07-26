@@ -41,10 +41,17 @@ defmodule Marker.Archive.Shiori.Protocol do
 
   Returns a list of shiori bookmarks.
   """
-  @spec all_bookmarks!(String.t()) :: [%{url: String.t(), shiori_id: integer(), shiori_bookmark_raw: term()}]
+  @spec all_bookmarks!(String.t()) :: [
+          %{url: String.t(), shiori_id: integer(), shiori_bookmark_raw: term()}
+        ]
   def all_bookmarks!(session) do
     all_bookmarks_raw!(session)
-    |> Enum.map(fn %{"url" => url, "id" => sid, "hasArchive" => has_archive, "hasContent" => has_content} = _raw ->
+    |> Enum.map(fn %{
+                     "url" => url,
+                     "id" => sid,
+                     "hasArchive" => has_archive,
+                     "hasContent" => has_content
+                   } = _raw ->
       # Logger.info("Loaded shiori bookmark into cache: #{url}")
 
       if not has_archive do
