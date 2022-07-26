@@ -34,6 +34,12 @@ defmodule MarkerWeb.Router do
     live "/bookmarks/:id/show/edit", BookmarkLive.Show, :edit
   end
 
+  scope "/archive", MarkerWeb.Archive, as: :archive do
+    pipe_through [:browser, :require_authenticated_user]
+
+    live "/shiori", ShioriLive.Index
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", MarkerWeb do
   #   pipe_through :api

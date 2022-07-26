@@ -1,0 +1,11 @@
+<h1>Listing Shiori Archives</h1>
+
+<%= for archive <- @archives do %>
+  <li>
+    <ul>
+      <a href={archive.url}><%= archive.url %></a>
+      <a href={archive.shiori_archive_url}>archive</a>
+      <a href={archive.shiori_content_url}>content</a>
+    </ul>
+  </li>
+<% end %>

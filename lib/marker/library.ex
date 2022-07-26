@@ -56,6 +56,14 @@ defmodule Marker.Library do
   """
   def get_bookmark!(id), do: Repo.get!(Bookmark, id)
 
+  @doc """
+  Gets a single bookmark with a given url. The url must match exactly.
+
+  Returns nil if there is no bookmark with the given url.
+  """
+  @spec get_bookmark_by_url(String.t()) :: Bookmark.t() | nil
+  def get_bookmark_by_url(url), do: Repo.one(Bookmark.Query.with_url(url))
+
   @spec get_bookmark_check_user!(term, Marker.Accounts.User.t()) :: Bookmark.t()
   @doc """
   Gets a single bookmark, assuming that bookmark is possessed by `user`.

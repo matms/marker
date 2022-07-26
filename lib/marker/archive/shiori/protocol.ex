@@ -45,18 +45,28 @@ defmodule Marker.Archive.Shiori.Protocol do
   def all_bookmarks!(session) do
     all_bookmarks_raw!(session)
     |> Enum.map(fn %{"url" => url, "id" => sid, "hasArchive" => has_archive, "hasContent" => has_content} = _raw ->
-      Logger.info("Loaded shiori bookmark into cache: #{url}")
+      # Logger.info("Loaded shiori bookmark into cache: #{url}")
 
       if not has_archive do
-        Logger.warn("hasArchive is false for #{url}")
+        # Logger.warn("hasArchive is false for #{url}")
       end
 
       if not has_content do
-        Logger.warn("Warning: hasContent is false for #{url}")
+        # Logger.warn("Warning: hasContent is false for #{url}")
       end
 
       %{url: url, shiori_id: sid}
     end)
+  end
+
+  @spec id_to_shiori_content_url(number) :: String.t()
+  def id_to_shiori_content_url(id) when is_number(id) do
+    "#{shiori_address()}/bookmark/#{id}/content"
+  end
+
+  @spec id_to_shiori_archive_url(number) :: String.t()
+  def id_to_shiori_archive_url(id) when is_number(id) do
+    "#{shiori_address()}/bookmark/#{id}/archive"
   end
 
   defp all_bookmarks_raw!(session) do

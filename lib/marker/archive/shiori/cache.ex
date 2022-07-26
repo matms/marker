@@ -20,6 +20,11 @@ defmodule Marker.Archive.Shiori.Cache do
     Agent.get(__MODULE__, fn state -> Map.has_key?(state, url) end)
   end
 
+  @spec list_archives :: [String.t()]
+  def list_archives() do
+    Agent.get(__MODULE__, fn state -> Map.keys(state) end)
+  end
+
   @spec get_archive_shiori_id(String.t()) :: number() | nil
   def get_archive_shiori_id(url) do
     Agent.get(__MODULE__, fn state ->

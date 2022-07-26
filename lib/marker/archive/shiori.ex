@@ -6,8 +6,9 @@ defmodule Marker.Archive.Shiori do
   (https://github.com/go-shiori/shiori)
   """
   use Boundary, exports: [ShioriError, Supervisor]
-  alias Marker.Archive.Shiori.Server
+  alias Marker.Archive.Shiori.{Server, Cache, Protocol}
 
+  @spec archive_url(String.t()) :: {:error, Marker.Archive.Shiori.ShioriError.t()} | {:ok, {number, String.t()}}
   @doc """
   Synchronously archives an URL in shiori.
 
@@ -36,5 +37,27 @@ defmodule Marker.Archive.Shiori do
   """
   def archive_url(url) do
     Server.new_archive(url)
+  end
+
+  @spec has_archive?(String.t()) :: boolean()
+  def has_archive?(url) do
+    Cache.has_archive?(url)
+  end
+
+  @spec list_archives :: [String.t()]
+  def list_archives() do
+    Cache.list_archives()
+  end
+
+  @spec url_to_shiori_content_url(String.t()) :: String.t()
+  def url_to_shiori_content_url(url) do
+    Cache.get_archive_shiori_id(url)
+    |> Protocol.id_to_shiori_content_url()
+  end
+
+  @spec url_to_shiori_archive_url(String.t()) :: String.t()
+  def url_to_shiori_archive_url(url) do
+    Cache.get_archive_shiori_id(url)
+    |> Protocol.id_to_shiori_archive_url()
   end
 end
