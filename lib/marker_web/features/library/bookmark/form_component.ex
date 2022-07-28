@@ -1,4 +1,4 @@
-defmodule MarkerWeb.Library.BookmarkLive.FormComponent do
+defmodule MarkerWeb.Library.Bookmark.FormComponent do
   use MarkerWeb, :live_component
 
   alias Marker.Library

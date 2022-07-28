@@ -26,18 +26,20 @@ defmodule MarkerWeb.Router do
   scope "/library", MarkerWeb.Library, as: :library do
     pipe_through [:browser, :require_authenticated_user]
 
-    live "/bookmarks", BookmarkLive.Index, :index
-    live "/bookmarks/new", BookmarkLive.Index, :new
-    live "/bookmarks/:id/edit", BookmarkLive.Index, :edit
+    scope "/bookmarks", Bookmark, as: :bookmark do
+      live "/bookmarks", IndexLive, :index
+      live "/bookmarks/new", IndexLive, :new
+      live "/bookmarks/:id/edit", IndexLive, :edit
 
-    live "/bookmarks/:id", BookmarkLive.Show, :show
-    live "/bookmarks/:id/show/edit", BookmarkLive.Show, :edit
+      live "/bookmarks/:id", ShowLive, :show
+      live "/bookmarks/:id/show/edit", ShowLive, :edit
+    end
   end
 
   scope "/archive", MarkerWeb.Archive, as: :archive do
     pipe_through [:browser, :require_authenticated_user]
 
-    live "/shiori", ShioriLive.Index
+    live "/shiori", Shiori.IndexLive
   end
 
   # Other scopes may use custom stacks.

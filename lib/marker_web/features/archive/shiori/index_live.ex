@@ -1,4 +1,4 @@
-defmodule MarkerWeb.Archive.ShioriLive.Index do
+defmodule MarkerWeb.Archive.Shiori.IndexLive do
   use MarkerWeb, :live_view
 
   alias Marker.Archive.Shiori

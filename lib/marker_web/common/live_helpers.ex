@@ -14,7 +14,7 @@ defmodule MarkerWeb.LiveHelpers do
 
       <.modal return_to={Routes.bookmark_index_path(@socket, :index)}>
         <.live_component
-          module={MarkerWeb.Library.BookmarkLive.FormComponent}
+          module={MarkerWeb.Library.Bookmark.FormComponent}
           id={@bookmark.id || :new}
           title={@page_title}
           action={@live_action}

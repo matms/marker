@@ -1,9 +1,11 @@
-defmodule MarkerWeb.Library.BookmarkLive.Index do
+defmodule MarkerWeb.Library.Bookmark.IndexLive do
   use MarkerWeb, :live_view
 
   alias Marker.Library
   alias Marker.Library.Bookmark
   alias Marker.Accounts
+
+  alias MarkerWeb.Library.Bookmark.FormComponent
 
   @impl true
   def mount(_params, %{"user_token" => user_token} = _session, socket) do
