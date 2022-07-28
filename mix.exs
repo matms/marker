@@ -99,4 +99,9 @@ defmodule Marker.MixProject do
     {list, _} = Code.eval_file("boundary.exs")
     list
   end
+
+  # Remark: For dialyzer configurations
+  # See `.vscode/settings.json`.
+
+  # In particular, we have many warnings enabled!
 end
