@@ -29,10 +29,19 @@ defmodule MarkerWeb do
     end
   end
 
-  def view(opts \\ [root: "lib/marker_web/"]) do
+  def view(opts \\ []) do
     # See https://elixirforum.com/t/domain-oriented-web-folder-structure/16671/2
     # and https://hexdocs.pm/phoenix_view/1.1.2/Phoenix.View.html
-    opts = opts ++ [namespace: MarkerWeb]
+    opts =
+      opts
+      |> Keyword.put_new(:namespace, MarkerWeb)
+      |> Keyword.put_new(:root, "lib/marker_web/")
+
+    opts =
+      case Keyword.get(opts, :root_ext) do
+        nil -> opts
+        ext -> opts |> Keyword.update!(:root, &Path.join(&1, ext))
+      end
 
     quote do
       use Phoenix.View, unquote(opts)
