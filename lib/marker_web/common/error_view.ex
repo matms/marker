@@ -1,5 +1,5 @@
 defmodule MarkerWeb.ErrorView do
-  use MarkerWeb, :view
+  use MarkerWeb, {:view, root: "lib/marker_web/common"}
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.

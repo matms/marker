@@ -1,5 +1,5 @@
 defmodule MarkerWeb.LayoutView do
-  use MarkerWeb, :view
+  use MarkerWeb, {:view, root: "lib/marker_web/common"}
 
   # Phoenix LiveDashboard is available only in development by default,
   # so we instruct Elixir to not warn if the dashboard route is missing.

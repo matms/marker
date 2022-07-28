@@ -29,11 +29,13 @@ defmodule MarkerWeb do
     end
   end
 
-  def view do
+  def view(opts \\ [root: "lib/marker_web/"]) do
+    # See https://elixirforum.com/t/domain-oriented-web-folder-structure/16671/2
+    # and https://hexdocs.pm/phoenix_view/1.1.2/Phoenix.View.html
+    opts = opts ++ [namespace: MarkerWeb]
+
     quote do
-      use Phoenix.View,
-        root: "lib/marker_web/templates",
-        namespace: MarkerWeb
+      use Phoenix.View, unquote(opts)
 
       # Import convenience functions from controllers
       import Phoenix.Controller,
@@ -109,5 +111,9 @@ defmodule MarkerWeb do
   """
   defmacro __using__(which) when is_atom(which) do
     apply(__MODULE__, which, [])
+  end
+
+  defmacro __using__({which, opts}) when is_atom(which) do
+    apply(__MODULE__, which, [opts])
   end
 end
