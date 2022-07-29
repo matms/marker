@@ -1,28 +1,36 @@
-<h1>Register</h1>
+<div class="mx-2 sm:mx-4 flex justify-center items-center">
+  <div class="container w-3/6 mx-auto">
+    <.form
+      let={f}
+      for={@changeset}
+      action={Routes.accounts_user_registration_path(@conn, :create)}
+      class="bg-white shadow-md rounded my-8 max-w-sm mx-auto px-8 py-8"
+    >
+      <%= if @changeset.action do %>
+        <div class="alert alert-danger">
+          <p>Oops, something went wrong! Please check the errors below.</p>
+        </div>
+      <% end %>
 
-<.form let={f} for={@changeset} action={Routes.accounts_user_registration_path(@conn, :create)}>
-  <%= if @changeset.action do %>
-    <div class="alert alert-danger">
-      <p>Oops, something went wrong! Please check the errors below.</p>
-    </div>
-  <% end %>
+      <div class="mb-6">
+        <%= label(f, :email, class: "block text-gray-700 font-bold mb-2") %>
+        <%= email_input(f, :email, required: true, class: "input w-full shadow-lg") %>
+        <%= error_tag(f, :email) %>
+      </div>
 
-  <%= label(f, :email) %>
-  <%= email_input(f, :email, required: true) %>
-  <%= error_tag(f, :email) %>
+      <div class="mb-6">
+        <%= label(f, :password, class: "block text-gray-700 font-bold mb-2") %>
+        <%= password_input(f, :password, required: true, class: "input w-full shadow-lg") %>
+        <%= error_tag(f, :password) %>
+      </div>
 
-  <%= label(f, :password) %>
-  <%= password_input(f, :password, required: true) %>
-  <%= error_tag(f, :password) %>
+      <div class="btn">
+        <%= submit("Register") %>
+      </div>
 
-  <div>
-    <%= submit("Register") %>
+      <div class="btn btn-link">
+        <%= link("Forgot password?", to: Routes.accounts_user_reset_password_path(@conn, :new)) %>
+      </div>
+    </.form>
   </div>
-</.form>
-
-<p>
-  <%= link("Log in", to: Routes.accounts_user_session_path(@conn, :new)) %> | <%= link(
-    "Forgot your password?",
-    to: Routes.accounts_user_reset_password_path(@conn, :new)
-  ) %>
-</p>
+</div>
