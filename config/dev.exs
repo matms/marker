@@ -26,7 +26,9 @@ config :marker, MarkerWeb.Endpoint,
   secret_key_base: "/hAxfepkftWv3j5YUKw+RkMKvGAs1w/Q4IwjylE2XDJ5jI34UaSejlgwP3R1JV2D",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    # Tailwind (see https://tailwindcss.com/docs/guides/phoenix)
+    tailwind: {Tailwind, :install_and_run, [:default, ~w(--watch)]}
   ]
 
 # ## SSL Support

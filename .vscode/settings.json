@@ -17,4 +17,16 @@
         "missing_return",
         "unknown"
     ],
+    
+    // Supress warning on "@apply".
+    "css.lint.unknownAtRules": "ignore",
+    
+    // Fixes "require(...).internalModuleReadJSON is not a function" error w/
+    // tailwind. See
+    // https://blog.sethcorker.com/question/getting-to-the-bottom-of-mix-tailwind-exited-with-1/
+    // Note: This doesn't seem to fully work? Need to fully disable
+    // "ms-vscode.js-debug"
+    "debug.javascript.terminalOptions": {
+        "env": {"NODE_OPTIONS": ""}
+    }
 }

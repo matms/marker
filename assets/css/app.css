@@ -1,5 +1,12 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 /* This file is for your main application CSS */
-@import "./phoenix.css";
+.traditional-link {
+  @apply underline text-blue-600 hover:text-blue-800 /* visited:text-purple-600 */
+}
+
 
 /* Alerts and form errors used by phx.new */
 .alert {
@@ -118,3 +125,4 @@
   0% { opacity: 1; }
   100% { opacity: 0; }
 }
+

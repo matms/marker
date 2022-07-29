@@ -56,7 +56,8 @@ defmodule Marker.MixProject do
       {:boundary, "~> 0.9", runtime: false},
       {:httpoison, "~> 1.8"},
       {:floki, "~> 0.33.0"},
-      {:html5ever, "~> 0.13.0"}
+      {:html5ever, "~> 0.13.0"},
+      {:tailwind, "~> 0.1", runtime: Mix.env() == :dev}
     ]
   end
 
@@ -72,7 +73,11 @@ defmodule Marker.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"]
+      "assets.deploy": [
+        "tailwind default --minify",
+        "esbuild default --minify",
+        "phx.digest"
+      ]
     ]
   end
 
