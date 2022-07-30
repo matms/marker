@@ -4,7 +4,7 @@
       let={f}
       for={@changeset}
       action={Routes.accounts_user_registration_path(@conn, :create)}
-      class="bg-white shadow-md rounded my-8 max-w-sm mx-auto px-8 py-8"
+      class="form-root "
     >
       <%= if @changeset.action do %>
         <div class="alert alert-danger">
@@ -13,14 +13,14 @@
       <% end %>
 
       <div class="mb-6">
-        <%= label(f, :email, class: "block text-gray-700 font-bold mb-2") %>
-        <%= email_input(f, :email, required: true, class: "input w-full shadow-lg") %>
+        <%= label(f, :email, class: "form-label") %>
+        <%= email_input(f, :email, required: true, class: "form-text-input") %>
         <%= error_tag(f, :email) %>
       </div>
 
       <div class="mb-6">
-        <%= label(f, :password, class: "block text-gray-700 font-bold mb-2") %>
-        <%= password_input(f, :password, required: true, class: "input w-full shadow-lg") %>
+        <%= label(f, :password, class: "form-label") %>
+        <%= password_input(f, :password, required: true, class: "form-text-input") %>
         <%= error_tag(f, :password) %>
       </div>
 
@@ -28,7 +28,7 @@
         <%= submit("Register") %>
       </div>
 
-      <div class="btn btn-link">
+      <div class="btn btn-link ml-3">
         <%= link("Forgot password?", to: Routes.accounts_user_reset_password_path(@conn, :new)) %>
       </div>
     </.form>

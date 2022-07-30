@@ -1,0 +1,33 @@
+/* Depends on Tailwind and daisyUI */
+
+@layer components {
+
+.form-root {
+    @apply bg-white shadow-md rounded my-8 max-w-md mx-auto px-8 py-8
+}
+
+.form-title {
+    @apply text-center font-bold mb-4
+}
+
+.form-label {
+    @apply block text-gray-700 font-bold mb-2
+}
+
+.form-text-input {
+    @apply input w-full shadow-lg
+}
+
+.form-error-tag {
+    @apply text-red-800 block ml-2 mt-1
+}
+
+.form-checkbox-label {
+    @apply label cursor-pointer label-text inline
+}
+
+.form-checkbox {
+    @apply checkbox
+}
+
+} /* layer components */
