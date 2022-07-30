@@ -246,6 +246,17 @@ defmodule Marker.Accounts do
   ## Confirmation
 
   @doc """
+  Returns whether `user` has confirmed their email.
+  """
+  def user_confirmed?(%User{} = user) do
+    if user.confirmed_at do
+      true
+    else
+      false
+    end
+  end
+
+  @doc """
   Delivers the confirmation email instructions to the given user.
 
   ## Examples
