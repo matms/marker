@@ -1,59 +1,67 @@
-<h1>Listing Bookmarks</h1>
+<div class="mx-auto container">
+  <h1 class="text-center font-bold text-5xl my-5">Listing Bookmarks</h1>
 
-<%= if @live_action in [:new, :edit] do %>
-  <.modal return_to={Routes.library_bookmark_index_path(@socket, :index)}>
-    <.live_component
-      module={FormComponent}
-      id={@bookmark.id || :new}
-      title={@page_title}
-      action={@live_action}
-      bookmark={@bookmark}
-      return_to={Routes.library_bookmark_index_path(@socket, :index)}
-    />
-  </.modal>
-<% end %>
+  <%= if @live_action in [:new, :edit] do %>
+    <.modal return_to={Routes.library_bookmark_index_path(@socket, :index)}>
+      <.live_component
+        module={FormComponent}
+        id={@bookmark.id || :new}
+        title={@page_title}
+        action={@live_action}
+        bookmark={@bookmark}
+        return_to={Routes.library_bookmark_index_path(@socket, :index)}
+      />
+    </.modal>
+  <% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
+  <%= for bookmark <- @bookmarks do %>
+    <div>
+      <div class="card card-side shadow-md rounded-none max-w-full mx-20 py-4">
+        <figure class="w-32 h-32 flex-none">
+          <!-- Add url icon here -->
+          <img class="h-full w-full bg-gray-800" />
+        </figure>
+        <div class="card-body py-0 w-full min-w-0 pr-10">
+          <div class="flex flex-1 justify-between">
+            <h2 class="font-bold flex-none pr-3">
+              <%= live_redirect(bookmark.title,
+                to: Routes.library_bookmark_show_path(@socket, :show, bookmark)
+              ) %>
+            </h2>
+            <a
+              class="font-thin whitespace-nowrap overflow-hidden overflow-ellipsis"
+              href={bookmark.url}
+            >
+              <%= url_host_or_error_message(bookmark.url) %>
+            </a>
+          </div>
 
-      <th></th>
-    </tr>
-  </thead>
-  <tbody id="bookmarks">
-    <%= for bookmark <- @bookmarks do %>
-      <tr id={"bookmark-#{bookmark.id}"}>
-        <td><a href={bookmark.url}><%= bookmark.title %></a></td>
+          <p>Add extra info here. Maybe tags as well?!</p>
 
-        <td>
-          <span>
-            <%= live_redirect("Show",
-              to: Routes.library_bookmark_show_path(@socket, :show, bookmark),
-              class: "button"
-            ) %>
-          </span>
-          <span>
+          <div class="card-actions justify-end">
             <%= live_patch("Edit",
               to: Routes.library_bookmark_index_path(@socket, :edit, bookmark),
-              class: "button"
+              class: "btn btn-link normal-case px-1 mx-0"
             ) %>
-          </span>
-          <span>
+
             <%= link("Delete",
               to: "#",
               phx_click: "delete",
               phx_value_id: bookmark.id,
-              data: [confirm: "Are you sure?"],
-              class: "button"
+              data: [
+                confirm:
+                  "Are you sure you want to delete the bookmark \"#{bookmark.title}\"? This action cannot be reversed."
+              ],
+              class: "btn btn-link normal-case px-1 mx-0"
             ) %>
-          </span>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
-<span>
-  <%= live_patch("New Bookmark", to: Routes.library_bookmark_index_path(@socket, :new)) %>
-</span>
+  <%= live_patch("New Bookmark",
+    to: Routes.library_bookmark_index_path(@socket, :new),
+    class: "btn"
+  ) %>
+</div>

@@ -54,4 +54,11 @@ defmodule MarkerWeb.Library.Bookmark.IndexLive do
   defp list_bookmarks_by_user(user) do
     Library.list_bookmarks_by_user(user)
   end
+
+  defp url_host_or_error_message(url) do
+    case URI.new(url) do
+      {:ok, uri} -> uri.host
+      {:error, _} -> "Cannot Parse URL"
+    end
+  end
 end
