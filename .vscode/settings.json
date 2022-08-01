@@ -20,6 +20,11 @@
     
     // Supress warning on "@apply".
     "css.lint.unknownAtRules": "ignore",
+
+    // Add support for tailwind intellisense in heex strings (~H).
+    "tailwindCSS.includeLanguages": {
+        "elixir": "html",
+    },
     
     // Fixes "require(...).internalModuleReadJSON is not a function" error w/
     // tailwind. See
