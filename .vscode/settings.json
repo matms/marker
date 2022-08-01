@@ -1,7 +1,16 @@
 {
+    // Support emmet abbreviations in .heex and .ex files. Annoyingly, this
+    // means _all_ .ex files, and in any context --- not only inside of ~H
+    // strings. If this is not desired, comment out the "elixir": "html" line.
     "emmet.includeLanguages": {
         "phoenix-heex": "html",
+        "elixir": "html",
     },
+    // Add support for tailwind intellisense in heex strings (~H).
+    "tailwindCSS.includeLanguages": {
+        "elixir": "html",
+    },
+
     "emeraldwalk.runonsave": {
         "commands": [
             {
@@ -21,11 +30,7 @@
     // Supress warning on "@apply".
     "css.lint.unknownAtRules": "ignore",
 
-    // Add support for tailwind intellisense in heex strings (~H).
-    "tailwindCSS.includeLanguages": {
-        "elixir": "html",
-    },
-    
+   
     // Fixes "require(...).internalModuleReadJSON is not a function" error w/
     // tailwind. See
     // https://blog.sethcorker.com/question/getting-to-the-bottom-of-mix-tailwind-exited-with-1/
