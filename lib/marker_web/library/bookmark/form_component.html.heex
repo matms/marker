@@ -1,5 +1,5 @@
 <div>
-  <h2><%= @title %></h2>
+  <h2 class="font-bold text-xl text-center"><%= @title %></h2>
 
   <.form
     let={f}
@@ -9,18 +9,21 @@
     phx-change="validate"
     phx-submit="save"
   >
-    <%= label(f, :url) %>
-    <%= text_input(f, :url) %>
-    <%= error_tag(f, :url) %>
-
-    <%= label(f, :title) %>
-    <%= text_input(f, :title) %>
-    <%= error_tag(f, :title) %>
+    <div class="mb-6">
+      <%= label(f, :url, class: "form-label") %>
+      <%= text_input(f, :url, class: "form-text-input") %>
+      <%= error_tag(f, :url) %>
+    </div>
+    <div class="mb-6">
+      <%= label(f, :title, class: "form-label") %>
+      <%= text_input(f, :title, class: "form-text-input") %>
+      <%= error_tag(f, :title) %>
+    </div>
 
     <%= hidden_input(f, :user_id) %>
 
     <div>
-      <%= submit("Save", phx_disable_with: "Saving...") %>
+      <%= submit("Save", phx_disable_with: "Saving...", class: "btn") %>
     </div>
   </.form>
 </div>

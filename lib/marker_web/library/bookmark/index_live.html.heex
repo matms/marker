@@ -1,8 +1,18 @@
 <div class="mx-auto container">
   <h1 class="text-center font-bold text-5xl my-5">Listing Bookmarks</h1>
 
+  <div class="mx-20 mb-6">
+    <%= live_patch("New Bookmark",
+      to: Routes.library_bookmark_index_path(@socket, :new),
+      class: "btn"
+    ) %>
+  </div>
+
   <%= if @live_action in [:new, :edit] do %>
-    <.modal return_to={Routes.library_bookmark_index_path(@socket, :index)}>
+    <.modal
+      return_to={Routes.library_bookmark_index_path(@socket, :index)}
+      modal_content_class_add="max-w-md"
+    >
       <.live_component
         module={FormComponent}
         id={@bookmark.id || :new}
@@ -10,6 +20,7 @@
         action={@live_action}
         bookmark={@bookmark}
         return_to={Routes.library_bookmark_index_path(@socket, :index)}
+        class="max-w-md"
       />
     </.modal>
   <% end %>
@@ -59,9 +70,4 @@
       </div>
     </div>
   <% end %>
-
-  <%= live_patch("New Bookmark",
-    to: Routes.library_bookmark_index_path(@socket, :new),
-    class: "btn"
-  ) %>
 </div>
