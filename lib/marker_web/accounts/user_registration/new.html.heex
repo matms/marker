@@ -24,13 +24,12 @@
         <%= error_tag(f, :password) %>
       </div>
 
-      <div class="btn">
-        <%= submit("Register") %>
-      </div>
+      <%= submit("Register", class: "btn") %>
 
-      <div class="btn btn-link ml-3">
-        <%= link("Forgot password?", to: Routes.accounts_user_reset_password_path(@conn, :new)) %>
-      </div>
+      <%= link("Forgot password?",
+        to: Routes.accounts_user_reset_password_path(@conn, :new),
+        class: "btn btn-link ml-3"
+      ) %>
     </.form>
   </div>
 </div>

@@ -24,9 +24,7 @@
     <%= error_tag(f, :password_confirmation) %>
   </div>
 
-  <div class="btn">
-    <%= submit("Reset password") %>
-  </div>
+  <%= submit("Reset password", class: "btn") %>
 
   <span class="ml-3" style="white-space: nowrap">
     <%= link("Register",

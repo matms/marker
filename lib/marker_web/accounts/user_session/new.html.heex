@@ -29,20 +29,17 @@
       </div>
 
       <span>
-        <div class="btn">
-          <%= submit("Log in") %>
-        </div>
+        <%= submit("Log in", class: "btn") %>
         <span class="ml-3" style="white-space: nowrap">
-          <span class="btn btn-link">
-            <%= link("Register", to: Routes.accounts_user_registration_path(@conn, :new)) %>
-          </span>
-
-          <span class="btn btn-link">
-            <%= link(
-              "Forgot Password?",
-              to: Routes.accounts_user_reset_password_path(@conn, :new)
-            ) %>
-          </span>
+          <%= link("Register",
+            to: Routes.accounts_user_registration_path(@conn, :new),
+            class: "btn btn-link"
+          ) %>
+          <%= link(
+            "Forgot Password?",
+            to: Routes.accounts_user_reset_password_path(@conn, :new),
+            class: "btn btn-link"
+          ) %>
         </span>
       </span>
     </.form>
