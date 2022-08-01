@@ -7,8 +7,13 @@ defmodule MarkerWeb.LiveHelpers do
   @doc """
   Renders a live component inside a modal.
 
-  The rendered modal receives a `:return_to` option to properly update
-  the URL when the modal is closed.
+  The rendered modal receives a `:return_to` option to properly update the URL
+  when the modal is closed.
+
+  You may override the outer HTML class by using :modal_class, and the inner
+  HTML class by using :modal_content_class. However, you probably want to
+  _extend_ rather than override these, in which case you should pass in
+  :modal_class_add or :modal_content_class_add respectively.
 
   ## Examples
 
@@ -22,15 +27,45 @@ defmodule MarkerWeb.LiveHelpers do
           bookmark: @bookmark
         />
       </.modal>
+
+      <.modal
+        return_to={Routes.bookmark_index_path(@socket, :index)}
+        modal_content_class_add="max-w-md"
+      >
+        ...
+      </.modal>
+
   """
   def modal(assigns) do
-    assigns = assign_new(assigns, :return_to, fn -> nil end)
+    assigns =
+      assigns
+      |> assign_new(:return_to, fn -> nil end)
+      |> assign_new(:modal_class, fn -> "phx-modal fade-in" end)
+      |> assign_new(:modal_content_class, fn -> "phx-modal-content fade-in-scale" end)
+
+    assigns =
+      if Map.has_key?(assigns, :modal_class_add) do
+        assign(assigns, :modal_class, assigns.modal_class <> " " <> assigns.modal_class_add)
+      else
+        assigns
+      end
+
+    assigns =
+      if Map.has_key?(assigns, :modal_content_class_add) do
+        assign(
+          assigns,
+          :modal_content_class,
+          assigns.modal_content_class <> " " <> assigns.modal_content_class_add
+        )
+      else
+        assigns
+      end
 
     ~H"""
-    <div id="modal" class="phx-modal fade-in" phx-remove={hide_modal()}>
+    <div id="modal" class={@modal_class} phx-remove={hide_modal()}>
       <div
         id="modal-content"
-        class="phx-modal-content fade-in-scale"
+        class={@modal_content_class}
         phx-click-away={JS.dispatch("click", to: "#close")}
         phx-window-keydown={JS.dispatch("click", to: "#close")}
         phx-key="escape"
