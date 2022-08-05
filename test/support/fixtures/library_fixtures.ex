@@ -19,4 +19,15 @@ defmodule Marker.LibraryFixtures do
 
     bookmark
   end
+
+  def tag_fixture(attrs \\ %{}) do
+    {:ok, tag} =
+      attrs
+      |> Enum.into(%{
+        name: "Some Tag"
+      })
+      |> Marker.Library.create_tag()
+
+    tag
+  end
 end

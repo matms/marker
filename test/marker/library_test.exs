@@ -27,9 +27,18 @@ defmodule Marker.LibraryTest do
       assert Enum.sort(Library.list_bookmarks_by_user(user1)) == Enum.sort([bookmark, bookmark2])
     end
 
-    test "get_bookmark!/1 returns the bookmark with given id" do
+    test "get_bookmark!/2 returns the bookmark with given id" do
       bookmark = bookmark_fixture()
       assert Library.get_bookmark!(bookmark.id) == bookmark
+    end
+
+    test "get_bookmark!/2 preloads tags if keyword preload_tags: true is passed" do
+      tag_a = tag_fixture(%{name: "a"})
+      tag_b = tag_fixture(%{name: "b"})
+      bookmark = bookmark_fixture(%{tags: [tag_a, tag_b]})
+
+      from_db = Library.get_bookmark!(bookmark.id, preload_tags: true)
+      assert length(from_db.tags) == 2
     end
 
     test "get_bookmark_check_user!/1 returns the bookmark with given id if user matches" do

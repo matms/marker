@@ -13,4 +13,9 @@ defmodule Marker.Library.Bookmark.Query do
     query
     |> where([b], b.url == ^url)
   end
+
+  def preload_tags(query \\ base()) do
+    query
+    |> preload(:tags)
+  end
 end

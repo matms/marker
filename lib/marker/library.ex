@@ -7,7 +7,7 @@ defmodule Marker.Library do
   import Ecto.Query, warn: false
   alias Marker.Repo
 
-  alias Marker.Library.Bookmark
+  alias Marker.Library.{Bookmark, Tag}
   alias Marker.Accounts.User
 
   @spec list_bookmarks :: [Bookmark.t()]
@@ -39,11 +39,15 @@ defmodule Marker.Library do
     |> Repo.all()
   end
 
-  @spec get_bookmark!(term) :: Bookmark.t()
+  @spec get_bookmark!(term, keyword) :: Bookmark.t()
   @doc """
   Gets a single bookmark.
 
   Raises `Ecto.NoResultsError` if the Bookmark does not exist.
+
+  ## Options
+
+  - `:preload_tags` - whether to preload tags. Defaults to false.
 
   ## Examples
 
@@ -54,7 +58,18 @@ defmodule Marker.Library do
       ** (Ecto.NoResultsError)
 
   """
-  def get_bookmark!(id), do: Repo.get!(Bookmark, id)
+  def get_bookmark!(id, opts \\ []) do
+    preload_tags? = Keyword.get(opts, :preload_tags, false)
+
+    q =
+      if preload_tags? do
+        Bookmark.Query.preload_tags()
+      else
+        Bookmark.Query.base()
+      end
+
+    Repo.get!(q, id)
+  end
 
   @doc """
   Gets a single bookmark with a given url. The url must match exactly.
@@ -151,5 +166,14 @@ defmodule Marker.Library do
   """
   def change_bookmark(%Bookmark{} = bookmark, attrs \\ %{}) do
     Bookmark.changeset(bookmark, attrs)
+  end
+
+  @doc """
+  Creates a new tag.
+  """
+  def create_tag(attrs \\ %{}) do
+    %Tag{}
+    |> Tag.changeset(attrs)
+    |> Repo.insert()
   end
 end
