@@ -98,6 +98,38 @@ defmodule Marker.LibraryTest do
       bookmark = bookmark_fixture()
       assert %Ecto.Changeset{} = Library.change_bookmark(bookmark)
     end
+
+    test "create_tag/1 with valid data creates a new tag" do
+      attrs = %{
+        name: "hello-world"
+      }
+
+      assert {:ok, %Library.Tag{} = tag} = Library.create_tag(attrs)
+      assert tag.name == "hello-world"
+      assert tag.normalized_name == "helloworld"
+    end
+
+    test "create_tag/1 with invalid data returns an error changeset" do
+      attrs = %{
+        name: ""
+      }
+
+      assert {:error, %Ecto.Changeset{}} = Library.create_tag(attrs)
+    end
+
+    test "create_tag_if_new! creates a new tag with a given name if new." do
+      assert %Library.Tag{name: name} = Library.create_tag_if_new!("new-name")
+      assert name == "new-name"
+    end
+
+    test "create_tag_if_new! returns an existing tag if applicable." do
+      existing_tag = tag_fixture(%{name: "abc"})
+
+      # Note the normalization.
+      tag = Library.create_tag_if_new!("ABC")
+
+      assert tag == existing_tag
+    end
   end
 
   defp load_user_with_id(id) do

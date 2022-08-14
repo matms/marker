@@ -154,7 +154,7 @@ defmodule Marker.Library do
     Repo.delete(bookmark)
   end
 
-  @spec change_bookmark(Bookmark.t(), %{}) :: Ecto.Changeset.t()
+  @spec change_bookmark(Bookmark.t(), map()) :: Ecto.Changeset.t()
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking bookmark changes.
 
@@ -175,5 +175,36 @@ defmodule Marker.Library do
     %Tag{}
     |> Tag.changeset(attrs)
     |> Repo.insert()
+  end
+
+  @doc """
+  Creates a tag with the given name if it doesn't already exist.
+  In any case, returns the matching tag.
+
+  Throws on failure.
+
+  ## Examples
+
+      iex> create_tag_if_new!("new")
+      %Tag{}
+
+      iex> create_tag_if_new!("existing")
+      %Tag{}
+  """
+  def create_tag_if_new!(name) do
+    normalized_name = Tag.Normalize.normalized(name)
+
+    {:ok, tag} =
+      Repo.transaction(fn ->
+        if tag = Repo.one(Tag.Query.with_normalized_name(normalized_name)) do
+          tag
+        else
+          {:ok, tag} = create_tag(%{name: name, normalized_name: normalized_name})
+
+          tag
+        end
+      end)
+
+    tag
   end
 end
