@@ -4,6 +4,8 @@ defmodule Marker.Library.Tag do
   """
   use Ecto.Schema
   import Ecto.Changeset
+  import Marker.Library.Tag.Normalize
+
   alias Marker.Library.{Bookmark, BookmarkTag}
 
   schema "tags" do
@@ -29,7 +31,6 @@ defmodule Marker.Library.Tag do
   defp validate_name(changeset) do
     changeset
     |> validate_required([:name])
-    |> unsafe_validate_unique(:name, Marker.Repo)
   end
 
   defp normalize_name(changeset) do
@@ -42,17 +43,8 @@ defmodule Marker.Library.Tag do
     end
   end
 
-  defp normalized(string) do
-    string
-    |> String.normalize(:nfkc)
-    |> String.trim()
-    |> String.downcase()
-    |> String.replace(~r/\s+|\-|\_/, "")
-  end
-
   defp validate_normalized_name(changeset) do
     changeset
     |> validate_required([:normalized_name])
-    |> unsafe_validate_unique(:normalized_name, Marker.Repo)
   end
 end
