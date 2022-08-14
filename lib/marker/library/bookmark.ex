@@ -56,9 +56,8 @@ defmodule Marker.Library.Bookmark do
   # Note that passing nil means don't make a change, whereas passing the empty
   # list means clear out all tags.
   defp maybe_put_tags(changeset, attrs) do
-    if Map.has_key?(attrs, :tags) && attrs[:tags] != nil do
-      changeset
-      |> put_assoc(:tags, attrs[:tags])
+    if tags = attrs[:tags] || attrs["tags"] do
+      changeset |> put_assoc(:tags, tags)
     else
       changeset
     end
