@@ -19,6 +19,12 @@
       <%= text_input(f, :title, class: "form-text-input") %>
       <%= error_tag(f, :title) %>
     </div>
+    <div class="mb-6">
+      <%= label(f, :tags, "Tags", class: "form-label") %>
+      <!-- Tag string value is handled manually. See update. -->
+      <%= text_input(f, :_tag_string, class: "form-text-input") %>
+      <%= error_tag(f, :tags) %>
+    </div>
 
     <%= hidden_input(f, :user_id) %>
 

@@ -47,7 +47,12 @@
             </a>
           </div>
 
-          <p>Add extra info here. Maybe tags as well?!</p>
+          <p>
+            Add extra info here. Maybe tags as well?!
+            <%= for tag <- bookmark.tags do %>
+              <span class="badge badge-outline"><%= tag.name %></span>
+            <% end %>
+          </p>
 
           <div class="card-actions justify-end">
             <%= live_patch("Edit",

@@ -10,36 +10,35 @@ defmodule Marker.Library do
   alias Marker.Library.{Bookmark, Tag}
   alias Marker.Accounts.User
 
-  @spec list_bookmarks :: [Bookmark.t()]
   @doc """
   Returns the list of bookmarks.
 
   ## Examples
 
-      iex> list_bookmarks()
-      [%Bookmark{}, ...]
+  iex> list_bookmarks()
+  [%Bookmark{}, ...]
 
   """
+  @spec list_bookmarks :: [Bookmark.t()]
   def list_bookmarks do
     Repo.all(Bookmark)
   end
 
-  @spec list_bookmarks_by_user(User.t()) :: [Bookmark.t()]
   @doc """
   Returns the list of bookmark by a given user
 
   ## Examples
 
-      iex> list_bookmarks_by_user(user)
-      [%Bookmark{}, ...]
+  iex> list_bookmarks_by_user(user)
+  [%Bookmark{}, ...]
 
   """
+  @spec list_bookmarks_by_user(User.t()) :: [Bookmark.t()]
   def list_bookmarks_by_user(%User{} = user) do
     Bookmark.Query.from_user(user)
     |> Repo.all()
   end
 
-  @spec get_bookmark!(term, keyword) :: Bookmark.t()
   @doc """
   Gets a single bookmark.
 
@@ -51,22 +50,19 @@ defmodule Marker.Library do
 
   ## Examples
 
-      iex> get_bookmark!(123)
-      %Bookmark{}
+  iex> get_bookmark!(123)
+  %Bookmark{}
 
-      iex> get_bookmark!(456)
-      ** (Ecto.NoResultsError)
+  iex> get_bookmark!(456)
+  ** (Ecto.NoResultsError)
 
   """
+  @spec get_bookmark!(term, keyword) :: Bookmark.t()
   def get_bookmark!(id, opts \\ []) do
     preload_tags? = Keyword.get(opts, :preload_tags, false)
 
-    q =
-      if preload_tags? do
-        Bookmark.Query.preload_tags()
-      else
-        Bookmark.Query.base()
-      end
+    q = Bookmark.Query.base()
+    q = if preload_tags?, do: q |> Bookmark.Query.preload_tags(), else: q
 
     Repo.get!(q, id)
   end
@@ -79,7 +75,6 @@ defmodule Marker.Library do
   @spec get_bookmark_by_url(String.t()) :: Bookmark.t() | nil
   def get_bookmark_by_url(url), do: Repo.one(Bookmark.Query.with_url(url))
 
-  @spec get_bookmark_check_user!(term, Marker.Accounts.User.t()) :: Bookmark.t()
   @doc """
   Gets a single bookmark, assuming that bookmark is possessed by `user`.
 
@@ -88,15 +83,24 @@ defmodule Marker.Library do
 
   ## Examples
 
-      iex> get_bookmark_check_user!(123, user)
-      %Bookmark{}
+  iex> get_bookmark_check_user!(123, user)
+  %Bookmark{}
 
-      iex> get_bookmark_check_user!(123, incorrect_user)
-      ** (Ecto.NoResultsError)
+  iex> get_bookmark_check_user!(123, incorrect_user)
+  ** (Ecto.NoResultsError)
   """
+  @spec get_bookmark_check_user!(term, Marker.Accounts.User.t()) :: Bookmark.t()
   def get_bookmark_check_user!(id, %User{} = user) do
     Bookmark.Query.from_user(user)
     |> Repo.get!(id)
+  end
+
+  @doc """
+  Gets a single bookmark, or a list of bookmarks, and preloads tags into these.
+  """
+  @spec preload_tags(t) :: t | nil when t: Bookmark.t() | [Bookmark.t()]
+  def preload_tags(bookmark_or_bookmarks) do
+    Repo.preload(bookmark_or_bookmarks, :tags)
   end
 
   @spec create_bookmark(%{}) :: {:ok, Bookmark.t()} | {:error, Ecto.Changeset.t()}
@@ -118,52 +122,52 @@ defmodule Marker.Library do
     |> Repo.insert()
   end
 
-  @spec update_bookmark(Bookmark.t(), %{}) :: {:ok, Bookmark.t()} | {:error, Ecto.Changeset.t()}
   @doc """
   Updates a bookmark.
 
   ## Examples
 
-      iex> update_bookmark(bookmark, %{field: new_value})
-      {:ok, %Bookmark{}}
+  iex> update_bookmark(bookmark, %{field: new_value})
+  {:ok, %Bookmark{}}
 
-      iex> update_bookmark(bookmark, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+  iex> update_bookmark(bookmark, %{field: bad_value})
+  {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_bookmark(Bookmark.t(), %{}) :: {:ok, Bookmark.t()} | {:error, Ecto.Changeset.t()}
   def update_bookmark(%Bookmark{} = bookmark, attrs) do
     bookmark
     |> Bookmark.changeset(attrs)
     |> Repo.update()
   end
 
-  @spec delete_bookmark(Marker.Library.Bookmark.t()) :: any
   @doc """
   Deletes a bookmark.
 
   ## Examples
 
-      iex> delete_bookmark(bookmark)
-      {:ok, %Bookmark{}}
+  iex> delete_bookmark(bookmark)
+  {:ok, %Bookmark{}}
 
-      iex> delete_bookmark(bookmark)
-      {:error, %Ecto.Changeset{}}
+  iex> delete_bookmark(bookmark)
+  {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_bookmark(Marker.Library.Bookmark.t()) :: any
   def delete_bookmark(%Bookmark{} = bookmark) do
     Repo.delete(bookmark)
   end
 
-  @spec change_bookmark(Bookmark.t(), map()) :: Ecto.Changeset.t()
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking bookmark changes.
 
   ## Examples
 
-      iex> change_bookmark(%Bookmark{})
-      %Ecto.Changeset{data: %Bookmark{}}
+  iex> change_bookmark(%Bookmark{})
+  %Ecto.Changeset{data: %Bookmark{}}
 
   """
+  @spec change_bookmark(Bookmark.t(), map()) :: Ecto.Changeset.t()
   def change_bookmark(%Bookmark{} = bookmark, attrs \\ %{}) do
     Bookmark.changeset(bookmark, attrs)
   end
@@ -171,6 +175,7 @@ defmodule Marker.Library do
   @doc """
   Creates a new tag.
   """
+  @spec create_tag(map()) :: {:ok, Tag.t()} | {:error, Ecto.Changeset.t()}
   def create_tag(attrs \\ %{}) do
     %Tag{}
     |> Tag.changeset(attrs)
@@ -191,6 +196,7 @@ defmodule Marker.Library do
       iex> create_tag_if_new!("existing")
       %Tag{}
   """
+  @spec create_tag_if_new!(String.t()) :: Tag.t()
   def create_tag_if_new!(name) do
     normalized_name = Tag.Normalize.normalized(name)
 

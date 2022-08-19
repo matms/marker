@@ -17,7 +17,12 @@ defmodule MarkerWeb.Library.Bookmark.IndexLive do
   end
 
   defp assign_bookmarks(%{assigns: %{current_user: user}} = socket) do
-    assign(socket, :bookmarks, list_bookmarks_by_user(user))
+    assign(
+      socket,
+      :bookmarks,
+      list_bookmarks_by_user(user)
+      |> Library.preload_tags()
+    )
   end
 
   @impl true
@@ -28,7 +33,7 @@ defmodule MarkerWeb.Library.Bookmark.IndexLive do
   defp apply_action(%{assigns: %{current_user: user}} = socket, :edit, %{"id" => id}) do
     socket
     |> assign(:page_title, "Edit Bookmark")
-    |> assign(:bookmark, Library.get_bookmark_check_user!(id, user))
+    |> assign(:bookmark, Library.get_bookmark_check_user!(id, user) |> Library.preload_tags())
   end
 
   defp apply_action(%{assigns: %{current_user: user}} = socket, :new, _params) do
