@@ -8,6 +8,8 @@ defmodule Marker.Library.Tag do
 
   alias Marker.Library.{Bookmark, BookmarkTag}
 
+  @type t() :: %__MODULE__{}
+
   schema "tags" do
     field :name, :string
     field :normalized_name, :string

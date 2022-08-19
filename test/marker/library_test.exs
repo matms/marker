@@ -32,15 +32,6 @@ defmodule Marker.LibraryTest do
       assert Library.get_bookmark!(bookmark.id) == bookmark
     end
 
-    test "get_bookmark!/2 preloads tags if keyword preload_tags: true is passed" do
-      tag_a = tag_fixture(%{name: "a"})
-      tag_b = tag_fixture(%{name: "b"})
-      bookmark = bookmark_fixture(%{tags: [tag_a, tag_b]})
-
-      from_db = Library.get_bookmark!(bookmark.id, preload_tags: true)
-      assert length(from_db.tags) == 2
-    end
-
     test "get_bookmark_check_user!/1 returns the bookmark with given id if user matches" do
       bookmark = bookmark_fixture()
       user = load_user_with_id(bookmark.user_id)
@@ -129,6 +120,15 @@ defmodule Marker.LibraryTest do
       tag = Library.create_tag_if_new!("ABC")
 
       assert tag == existing_tag
+    end
+
+    test "may preloads tags with preload_tags" do
+      tag_a = tag_fixture(%{name: "a"})
+      tag_b = tag_fixture(%{name: "b"})
+      bookmark = bookmark_fixture(%{tags: [tag_a, tag_b]})
+
+      from_db = Library.get_bookmark!(bookmark.id) |> Library.preload_tags()
+      assert length(from_db.tags) == 2
     end
   end
 

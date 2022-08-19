@@ -40,31 +40,28 @@ defmodule Marker.Library do
   end
 
   @doc """
-  Gets a single bookmark.
-
-  Raises `Ecto.NoResultsError` if the Bookmark does not exist.
-
-  ## Options
-
-  - `:preload_tags` - whether to preload tags. Defaults to false.
+  Gets a single bookmark. Returns nil if the bookmark doesn't exist.
 
   ## Examples
 
-  iex> get_bookmark!(123)
-  %Bookmark{}
+      iex> get_bookmark!(123)
+      %Bookmark{}
 
-  iex> get_bookmark!(456)
-  ** (Ecto.NoResultsError)
-
+      iex> get_bookmark!(456)
+      nil
   """
-  @spec get_bookmark!(term, keyword) :: Bookmark.t()
-  def get_bookmark!(id, opts \\ []) do
-    preload_tags? = Keyword.get(opts, :preload_tags, false)
+  @spec get_bookmark(term) :: Bookmark.t() | nil
+  def get_bookmark(id) do
+    Repo.get(Bookmark, id)
+  end
 
-    q = Bookmark.Query.base()
-    q = if preload_tags?, do: q |> Bookmark.Query.preload_tags(), else: q
-
-    Repo.get!(q, id)
+  @doc """
+  Like `get_bookmark/1`, but raises `Ecto.NoResultsError` if the Bookmark does
+  not exist.
+  """
+  @spec get_bookmark!(term) :: Bookmark.t()
+  def get_bookmark!(id) do
+    Repo.get!(Bookmark, id)
   end
 
   @doc """
