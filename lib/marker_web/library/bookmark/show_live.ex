@@ -20,7 +20,7 @@ defmodule MarkerWeb.Library.Bookmark.ShowLive do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
-     |> assign(:bookmark, Library.get_bookmark_check_user!(id, user))}
+     |> assign(:bookmark, Library.get_bookmark_check_user!(id, user) |> Library.preload_tags())}
   end
 
   defp page_title(:show), do: "Show Bookmark"

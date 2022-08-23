@@ -39,7 +39,7 @@ defmodule MarkerWeb.Library.Bookmark.IndexLive do
   defp apply_action(%{assigns: %{current_user: user}} = socket, :new, _params) do
     socket
     |> assign(:page_title, "New Bookmark")
-    |> assign(:bookmark, %Bookmark{user_id: user.id})
+    |> assign(:bookmark, %Bookmark{user_id: user.id, tags: []})
   end
 
   defp apply_action(socket, :index, _params) do
