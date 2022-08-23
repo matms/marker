@@ -2,6 +2,8 @@ defmodule MarkerWeb.Library.BookmarkLiveTest do
   @moduledoc false
   use MarkerWeb.ConnCase
 
+  alias Marker.Library
+
   import Phoenix.LiveViewTest
   import Marker.LibraryFixtures
 
@@ -10,7 +12,7 @@ defmodule MarkerWeb.Library.BookmarkLiveTest do
   @invalid_attrs %{title: nil, url: nil}
 
   defp create_bookmark(%{user: user}) do
-    bookmark = bookmark_fixture(%{user_id: user.id})
+    bookmark = bookmark_fixture(%{user_id: user.id}) |> Library.preload_tags()
     %{bookmark: bookmark}
   end
 

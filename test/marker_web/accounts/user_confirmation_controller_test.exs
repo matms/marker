@@ -14,7 +14,7 @@ defmodule MarkerWeb.Accounts.UserConfirmationControllerTest do
     test "renders the resend confirmation page", %{conn: conn} do
       conn = get(conn, Routes.accounts_user_confirmation_path(conn, :new))
       response = html_response(conn, 200)
-      assert response =~ "<h1>Resend confirmation instructions</h1>"
+      assert response =~ "Resend confirmation instructions"
     end
   end
 
@@ -60,7 +60,7 @@ defmodule MarkerWeb.Accounts.UserConfirmationControllerTest do
     test "renders the confirmation page", %{conn: conn} do
       conn = get(conn, Routes.accounts_user_confirmation_path(conn, :edit, "some-token"))
       response = html_response(conn, 200)
-      assert response =~ "<h1>Confirm account</h1>"
+      assert response =~ "Confirm account"
 
       form_action = Routes.accounts_user_confirmation_path(conn, :update, "some-token")
       assert response =~ "action=\"#{form_action}\""

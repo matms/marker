@@ -4,12 +4,11 @@ defmodule Marker.LibraryTest do
   use Marker.DataCase
 
   alias Marker.Library
+  alias Marker.Library.Bookmark
+
+  import Marker.LibraryFixtures
 
   describe "bookmarks" do
-    alias Marker.Library.Bookmark
-
-    import Marker.LibraryFixtures
-
     @invalid_attrs %{title: nil, url: nil}
 
     test "list_bookmarks/0 returns all bookmarks" do
@@ -89,7 +88,9 @@ defmodule Marker.LibraryTest do
       bookmark = bookmark_fixture()
       assert %Ecto.Changeset{} = Library.change_bookmark(bookmark)
     end
+  end
 
+  describe "tags" do
     test "create_tag/1 with valid data creates a new tag" do
       attrs = %{
         name: "hello-world"

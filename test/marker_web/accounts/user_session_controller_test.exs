@@ -12,9 +12,9 @@ defmodule MarkerWeb.Accounts.UserSessionControllerTest do
     test "renders log in page", %{conn: conn} do
       conn = get(conn, Routes.accounts_user_session_path(conn, :new))
       response = html_response(conn, 200)
-      assert response =~ "<h1>Log in</h1>"
-      assert response =~ "Register</a>"
-      assert response =~ "Forgot your password?</a>"
+      assert response =~ "Log in"
+      assert response =~ "Register"
+      assert response =~ "Forgot Password?"
     end
 
     test "redirects if already logged in", %{conn: conn, user: user} do
@@ -76,7 +76,7 @@ defmodule MarkerWeb.Accounts.UserSessionControllerTest do
         })
 
       response = html_response(conn, 200)
-      assert response =~ "<h1>Log in</h1>"
+      assert response =~ "Log in"
       assert response =~ "Invalid email or password"
     end
   end
