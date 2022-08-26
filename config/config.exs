@@ -66,6 +66,11 @@ config :marker, Marker.Accounts,
   min_password_length: 12,
   login_with_any_password: false
 
+# Favicon Handling Options
+config :marker, Marker.Page.Favicon,
+  dyn_fetch_favicons: true,
+  dyn_favicon_service: :icons_duckduckgo
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

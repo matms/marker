@@ -8,5 +8,5 @@ defmodule Marker do
   """
   use Boundary,
     deps: [Ecto, Ecto.Changeset, Logger],
-    exports: [Accounts, Accounts.User, Library, Library.Bookmark, Archive, Archive.Shiori]
+    exports: [Accounts, Accounts.User, Library, Library.Bookmark, Archive, Archive.Shiori, Page]
 end
