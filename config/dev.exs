@@ -86,7 +86,7 @@ config :marker, Marker.Accounts,
 # Archival Backends
 config :marker, Marker.Archive,
   enabled_backends: [
-    :shiori
+    # :shiori
   ]
 
 config :marker, Marker.Archive.Shiori,

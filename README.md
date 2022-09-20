@@ -1,24 +1,26 @@
 # Marker
 
-To start your Phoenix server:
+## What is Marker?
 
-- Install dependencies with `mix deps.get`
-- Create and migrate your database with `mix ecto.setup`
-- Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+Marker is a lightweight bookmark manager, with optional support for archiving
+web pages using an external backup/archival backend.
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
+## Features
 
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
+- [x] Saving and managing bookmarks.
+- [x] Organizing bookmarks via tags.
+- [x] Optional support for archiving pages using Shiori. To use, make sure to
+      add the connection info to `config/` --- using Shiori inside of a
+      stateful container is probably the easiest approach.
+- [x] Multi-user support.
 
-## Learn more
+## Roadmap
 
-- Official website: https://www.phoenixframework.org/
-- Guides: https://hexdocs.pm/phoenix/overview.html
-- Docs: https://hexdocs.pm/phoenix
-- Forum: https://elixirforum.com/c/phoenix-forum
-- Source: https://github.com/phoenixframework/phoenix
-
-## Useful Notes
-
-The Tailwind CLI is incompatible with the vscode extension "ms-vscode.js-debug".
-Make sure to disable it if using vscode.
+- [ ] Alternative archival backends. User should be able to choose to use one or
+      more of these.
+- [ ] Intelligent search, including filtering by tags and domain.
+- [ ] Full text search on bookmarks / archives.
+- [ ] Multi-user support for archival backends (will depend on specific backend
+      support).
+- [ ] Convenient reading of archives inside of Marker. (Likely will require
+      forwarding/proxying requests to the specific archival backend).
